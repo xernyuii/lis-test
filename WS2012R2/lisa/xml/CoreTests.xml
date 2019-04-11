@@ -54,6 +54,7 @@
             <suiteTest>FloppyDisk</suiteTest>
             <suiteTest>StressReloadModules_SMP</suiteTest>
             <suiteTest>Core_max_cpus</suiteTest>
+            <suiteTest>Core_Offline_CPU_SMP</suiteTest>
             <suiteTest>VCPU_verify_online</suiteTest>
             <suiteTest>VerifyIntegratedShutdownService</suiteTest>
             <suiteTest>RebootDifferentMemSettings</suiteTest>
@@ -175,6 +176,48 @@
          </testParams>
          <timeout>1600</timeout>
          <noReboot>False</noReboot>
+        </test>
+        <test>
+            <testName>Core_Parameter_nr_cpus</testName>
+            <setupScript>
+                <file>setupscripts\ChangeCPU.ps1</file>
+            </setupScript>
+            <testScript>setupscripts\Core_Parameter_nr_cpus.ps1</testScript>
+            <files>remote-scripts/ica/utils.sh,remote-scripts/ica/check_traces.sh,remote-scripts/ica/Core_Parameter_maxcpus.sh</files>
+            <testParams>
+                <param>TC_COVERED=CORE-39</param>
+                <param>VCPU=8</param>
+                <param>NRCPUs=4</param>
+            </testParams>
+            <timeout>1000</timeout>
+        </test>
+        <test>
+            <testName>Core_Parameter_maxcpus</testName>
+            <setupScript>
+                <file>setupscripts\ChangeCPU.ps1</file>
+            </setupScript>
+            <testScript>setupscripts\Core_Parameter_maxcpus.ps1</testScript>
+            <files>remote-scripts/ica/utils.sh,remote-scripts/ica/check_traces.sh,remote-scripts/ica/Core_Parameter_maxcpus.sh</files>
+            <testParams>
+                <param>TC_COVERED=CORE-40</param>
+                <param>VCPU=8</param>
+                <param>MAXCPUs=4</param>
+            </testParams>
+            <timeout>1000</timeout>
+        </test>
+        <test>
+            <testName>Core_disable_maxcpus</testName>
+            <setupScript>
+                <file>setupscripts\ChangeCPU.ps1</file>
+            </setupScript>
+            <testScript>setupscripts\Core_disable_maxcpus.ps1</testScript>
+            <files>remote-scripts/ica/utils.sh,remote-scripts/ica/check_traces.sh,remote-scripts/ica/Core_Parameter_maxcpus.sh</files>
+            <testParams>
+                <param>TC_COVERED=CORE-41</param>
+                <param>VCPU=8</param>
+                <param>MAXCPUs=4</param>
+            </testParams>
+            <timeout>1000</timeout>
         </test>
         <test>
             <testName>VerifyIntegratedShutdownService</testName>

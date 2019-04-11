@@ -2203,3 +2203,23 @@ CheckCallTracesWithDelay()
         return 0
     fi
 }
+
+ChangeKernelParamter()
+{
+    #Change kernel parameter in /etc/default/grub
+	sed -i '/^GRUB\_CMDLINE\_LINUX/s/\"$/\ '$1'\"/' /etc/default/grub
+    GetGuestGeneration
+    if [ $os_GENERATION -eq 1 ]; then
+        grub2-mkconfig -o /boot/grub2/grub.cfg
+    else
+        grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
+    fi
+
+	if [ $? -ne 0 ]; then
+        LogMsg "kernel parameter $1 error."
+        UpdateSummary "Set kernel parameter $1 error."
+        UpdateTestState "TestFailed"
+        exit 2
+    fi
+	return 0
+}
